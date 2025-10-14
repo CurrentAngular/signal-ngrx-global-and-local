@@ -2,23 +2,20 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { TodoStore } from '../../stores/todo/todo.store';
 import { FormsModule } from '@angular/forms';
 import { DatePipe, JsonPipe } from '@angular/common';
+import { TODO_STORE } from '../../stores/todo/todo-store.token';
 
 @Component({
   selector: 'app-todo-list',
   imports: [FormsModule, JsonPipe, DatePipe],
-  // Локальный провайдер - store живет только в этом компоненте
-  // Провайдер регистрируется в конкретном компоненте
   providers: [TodoStore],
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit {
-  // Живёт только в рамках этого компонента и его детей
-  // Уничтожается при уничтожении компонента
-  todoStore = inject(TodoStore);
+  // todoStore = inject(TodoStore);
+  todoStore = inject(TODO_STORE);
 
   ngOnInit() {
-    // Автоматическая загрузка при инициализации
     this.todoStore.loadTodos();
   }
 
