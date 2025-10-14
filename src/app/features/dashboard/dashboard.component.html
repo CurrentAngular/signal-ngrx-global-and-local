@@ -1,0 +1,33 @@
+<div class="dashboard">
+	<h2>Dashboard (Global Store)</h2>
+
+	<div class="user-info">
+		<h3>User Info</h3>
+		<p>
+			<strong>Status:</strong>
+			{{ globalStore.isLoggedIn() ? 'Logged In' : 'Guest' }}
+		</p>
+		<p><strong>Name:</strong> {{ globalStore.user().name }}</p>
+		<p><strong>Email:</strong> {{ globalStore.user().email }}</p>
+		<p>
+			<strong>Last Update:</strong> {{ globalStore.lastUpdated() }}
+		</p>
+	</div>
+
+	<div class="actions">
+		<button (click)="login()" [disabled]="globalStore.isLoading() || globalStore.isLoggedIn()">
+			{{ globalStore.isLoading() ? 'Logging in...' : 'Login as John' }}
+		</button>
+
+		<button (click)="globalStore.logout()" [disabled]="!globalStore.isLoggedIn()">
+			Logout
+		</button>
+
+		<button (click)="updateUser()">Update Profile</button>
+	</div>
+
+	<div class="state">
+		<h4>Global State:</h4>
+		<pre>{{ globalStore | json }}</pre>
+	</div>
+</div>

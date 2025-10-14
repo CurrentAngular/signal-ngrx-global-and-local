@@ -1,0 +1,48 @@
+      .todo-list {
+      	padding: 20px;
+      	border: 2px solid green;
+      	margin: 10px;
+      }
+
+      .add-todo,
+      .controls {
+      	margin-bottom: 15px;
+      }
+
+      .add-todo input,
+      .controls input {
+      	margin-right: 10px;
+      	padding: 5px;
+      }
+
+      .stats {
+      	margin-bottom: 15px;
+      }
+
+      .stats span {
+      	margin-right: 15px;
+      	font-weight: bold;
+      }
+
+      .todo-item {
+      	display: flex;
+      	align-items: center;
+      	padding: 8px;
+      	border-bottom: 1px solid #eee;
+      }
+
+      .todo-item.completed .todo-title {
+      	text-decoration: line-through;
+      	color: #888;
+      }
+
+      .todo-title {
+      	flex: 1;
+      	margin: 0 10px;
+      }
+
+      .state {
+      	background: #f0f8f0;
+      	padding: 10px;
+      	margin-top: 20px;
+      }
