@@ -1,59 +1,190 @@
-# AngularStores
+# 🚀 Angular v20 + NgRx Signals Store Demo
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.5.
+Проект-демонстрация использования **NgRx Signal Store** в современном Angular приложении с сигналами и standalone компонентами.
 
-## Development server
+## 📋 О проекте
 
-To start a local development server, run:
+Этот проект показывает разницу между **глобальным** и **локальным** состоянием с использованием нового **NgRx Signal Store** в Angular v20+.
+
+## 🛠 Технологии
+
+- **Angular v20+** - последняя версия фреймворка
+- **NgRx Signal Store** - управление состоянием на основе сигналов
+- **Standalone Components** - современный подход без модулей
+- **Signals** - реактивная система Angular
+- **TypeScript** - строгая типизация
+
+## 🏗 Архитектура состояния
+
+### 🌍 **Глобальный Store (GlobalStore)**
+
+- Singleton на всё приложение
+- Содержит общеприложениевые данные
+- Доступен из любого компонента
+- Регистрируется через `{ providedIn: 'root' }`
+
+```typescript
+// Пример использования
+globalStore = inject(GlobalStore);
+userName = this.globalStore.user().name;
+```
+
+### 🏠 **Локальный Store (TodoStore)**
+
+- Живёт только в рамках конкретного компонента
+- Уничтожается при разрушении компонента
+- Изолированное состояние для фичи
+- Регистрируется в провайдерах компонента
+
+```typescript
+// Пример использования
+@Component({
+  providers: [TodoStore] // Локальная регистрация
+})
+```
+
+## 📁 Структура проекта
+
+```
+src/
+├── app/
+│   ├── stores/
+│   │   ├── global/
+│   │   │   └── global.store.ts          # Глобальный store
+│   │   └── todo/
+│   │       └── todo.store.ts            # Локальный store
+│   ├── features/
+│   │   ├── dashboard/
+│   │   │   └── dashboard.component.ts    # Использует глобальный store
+│   │   └── todo-list/
+│   │       └── todo-list.component.ts   # Использует локальный store
+│   ├── app.component.ts                  # Корневой компонент
+│   └── app.config.ts                     # Конфигурация приложения
+```
+
+## 🎯 Ключевые особенности
+
+### ✅ **Глобальное состояние (GlobalStore)**
+
+- Информация о пользователе
+- Настройки приложения
+- Загрузочные состояния
+- Timestamp последнего обновления
+
+### ✅ **Локальное состояние (TodoStore)**
+
+- Список задач
+- Фильтрация и поиск
+- Статистика по задачам
+- Локальные загрузочные состояния
+
+### ✅ **Signal-based преимущества**
+
+- 🚀 **Автоматическая реактивность** - нет необходимости в ручной подписке
+- 🎯 **Type-safe** - полная типобезопасность
+- ⚡ **Производительность** - оптимизированные обновления
+- 🔄 **Интеграция с RxJS** - через `rxMethod` (опционально)
+
+## 🚀 Быстрый старт
+
+### Установка зависимостей
 
 ```bash
+npm install
+```
+
+### Запуск development сервера
+
+```bash
+npm start
+# или
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Сборка проекта
 
 ```bash
-ng generate component component-name
+npm run build
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 💡 Примеры использования
 
-```bash
-ng generate --help
+### Чтение состояния
+
+```typescript
+// Сигналы автоматически обновляются
+userName = this.globalStore.user().name;
+isLoading = this.globalStore.isLoading();
 ```
 
-## Building
+### Изменение состояния
 
-To build the project run:
+```typescript
+// Синхронное обновление
+this.todoStore.addTodo('New task');
+this.todoStore.toggleTodo(taskId);
 
-```bash
-ng build
+// Асинхронные операции
+this.globalStore.login(credentials);
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Computed значения
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+```typescript
+// Автоматически пересчитываются при изменении зависимостей
+filteredTodos = this.todoStore.filteredTodos();
+stats = this.todoStore.stats();
 ```
 
-## Running end-to-end tests
+## 🔧 Конфигурация
 
-For end-to-end (e2e) testing, run:
+### app.config.ts
 
-```bash
-ng e2e
+```typescript
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideStore(), // NgRx Global Store
+  ],
+};
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🎨 Компоненты
 
-## Additional Resources
+### DashboardComponent
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Демонстрирует работу с **глобальным** store
+- Показывает информацию пользователя
+- Управление авторизацией
+
+### TodoListComponent
+
+- Демонстрирует работу с **локальным** store
+- CRUD операции с задачами
+- Фильтрация и поиск
+
+## 📚 Learn More
+
+- [Angular Signals Guide](https://angular.io/guide/signals)
+- [NgRx Signal Store Documentation](https://ngrx.io/guide/signals/signal-store)
+- [Standalone Components](https://angular.io/guide/standalone-components)
+
+## 🤝 Разработка
+
+### Code Style
+
+- Standalone компоненты
+- Signal-based подход
+- Strict TypeScript
+- Reactive programming
+
+### Best Practices
+
+- Разделение глобального и локального состояния
+- Использование computed для производных данных
+- Инкапсуляция бизнес-логики в stores
+
+---
+
+**⭐ Если проект был полезен, поставьте звезду!**
