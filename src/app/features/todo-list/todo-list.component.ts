@@ -1,11 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { TodoStore } from '../../stores/todo/todo.store';
 import { FormsModule } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-todo-list',
-  imports: [FormsModule, JsonPipe],
+  imports: [FormsModule, JsonPipe, DatePipe],
   // Локальный провайдер - store живет только в этом компоненте
   // Провайдер регистрируется в конкретном компоненте
   providers: [TodoStore],

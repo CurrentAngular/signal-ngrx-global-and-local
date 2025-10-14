@@ -1,22 +1,22 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { GlobalStore } from '../../stores/global/global.store';
-import { JsonPipe, DatePipe } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [JsonPipe, DatePipe],
+  imports: [JsonPipe],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
   globalStore = inject(GlobalStore);
 
-  login() {
+  login(): void {
     this.globalStore.login({ username: 'John', password: '123' });
   }
 
-  updateUser() {
+  updateUser(): void {
     this.globalStore.setUser({
       name: 'John Updated',
       email: 'john.updated@example.com',
