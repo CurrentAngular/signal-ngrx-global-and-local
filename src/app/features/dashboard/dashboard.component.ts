@@ -4,7 +4,6 @@ import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true,
   imports: [JsonPipe],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
