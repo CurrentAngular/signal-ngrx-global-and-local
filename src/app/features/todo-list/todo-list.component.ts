@@ -6,11 +6,15 @@ import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-todo-list',
   imports: [FormsModule, JsonPipe],
-  providers: [TodoStore], // Локальный провайдер - store живет только в этом компоненте
+  // Локальный провайдер - store живет только в этом компоненте
+  // Провайдер регистрируется в конкретном компоненте
+  providers: [TodoStore],
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit {
+  // Живёт только в рамках этого компонента и его детей
+  // Уничтожается при уничтожении компонента
   todoStore = inject(TodoStore);
 
   ngOnInit() {

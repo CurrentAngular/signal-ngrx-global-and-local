@@ -39,6 +39,7 @@ const DEFAULT_USER_STATE = {
 const initialState: GlobalState = DEFAULT_USER_STATE;
 
 export const GlobalStore = signalStore(
+  // singleton на всё приложение
   { providedIn: 'root' },
   withState(initialState),
   withComputed(({ user, lastUpdated }) => ({
@@ -62,6 +63,7 @@ export const GlobalStore = signalStore(
         lastUpdated: new Date().toISOString(),
       });
     },
+    // Интеграция с RxJS через rxMethod
     login: rxMethod<Login>(
       pipe(
         tap(() => patchState(store, { isLoading: true })),
